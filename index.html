@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Siddhi Wadkar — Shopify Developer</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.8.1/prop-types.min.js"></script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: #efe9da;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(29,35,33,0.055) 1px, transparent 0);
+    background-size: 18px 18px;
+    font-family: 'Work Sans', sans-serif;
+    color: #1d2321;
+  }
+  .font-display { font-family: 'Fraunces', serif; }
+
+  @keyframes riseIn {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .rise-in { animation: riseIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+  .zig {
+    height: 12px;
+    background-image:
+      linear-gradient(135deg, #efe9da 25%, transparent 25%),
+      linear-gradient(225deg, #efe9da 25%, transparent 25%);
+    background-position: 0 0;
+    background-size: 16px 16px;
+    background-repeat: repeat-x;
+  }
+  .zig-bottom { transform: scaleY(-1); }
+
+  .stub-row {
+    border-top: 1px solid #c9c3b2;
+    transition: background-color 0.2s ease;
+  }
+  .stub-row:first-child { border-top: none; }
+  .stub-row:hover { background-color: #f7f4ec; }
+
+  .tag-chip { position: relative; }
+  .tag-chip::before {
+    content: "";
+    position: absolute;
+    left: -3px; top: 50%;
+    width: 6px; height: 6px;
+    background: #fbfaf5;
+    border: 1px solid #c9c3b2;
+    border-radius: 999px;
+    transform: translateY(-50%);
+  }
+
+  .underline-link {
+    text-decoration: none;
+    border-bottom: 1px solid #a86a2c;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .underline-link:hover { color: #a86a2c; }
+
+  .copy-btn { transition: opacity 0.15s ease, transform 0.15s ease; }
+  .copy-btn:active { transform: scale(0.94); }
+</style>
+</head>
+<body>
+
+<div id="root"></div>
+
+<script type="text/babel" data-presets="react,env">
+const { useState } = React;
+
+function CopyField({ icon, value, display, href }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async (e) => {
+    e.preventDefault();
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1600);
+    } catch (err) {
+      window.location.href = href;
+    }
+  };
+
+  return (
+    <button
+      onClick={handleCopy}
+      className="copy-btn inline-flex items-center gap-1.5 text-sm text-[#4a5049] hover:text-[#1d2321]"
+      title={`Copy ${display}`}
+    >
+      <span aria-hidden="true">{icon}</span>
+      <span className="underline decoration-[#c9c3b2] underline-offset-2">
+        {copied ? "Copied!" : display}
+      </span>
+    </button>
+  );
+}
+
+function StoreRow({ name, url, desc, status, flagship }) {
+  return (
+    <div className="stub-row flex items-start justify-between gap-4 py-3 px-1 -mx-1 rounded">
+      <div>
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline-link font-medium text-[#1d2321]"
+        >
+          {name}
+        </a>
+        {desc && (
+          <p className="text-sm text-[#4a5049] mt-1 max-w-md">{desc}</p>
+        )}
+      </div>
+      <span className="text-xs text-[#5f6b52] whitespace-nowrap pt-1">{status}</span>
+    </div>
+  );
+}
+
+function Tag({ children }) {
+  return (
+    <span className="tag-chip inline-block px-3 py-1.5 rounded-sm text-sm bg-[#e6e6d8] text-[#5f6b52]">
+      {children}
+    </span>
+  );
+}
+
+function App() {
+  const stores = [
+    {
+      name: "luflicskin.com",
+      url: "https://www.luflicskin.com/",
+      desc: "Built from scratch — custom theme sections and product pages to spec.",
+      status: "live",
+    },
+    {
+      name: "scorenn.com",
+      url: "https://scorenn.com/",
+      desc: "Full ongoing ownership — custom sections, templates, Klaviyo + Tidio + Swatch King. Long-term client relationship.",
+      status: "live · ongoing",
+    },
+    {
+      name: "tascony.com",
+      url: "https://tascony.com/",
+      desc: "Built from scratch — custom storefront components, responsive across devices.",
+      status: "live",
+    },
+    { name: "pointestudio.dk", url: "https://pointestudio.dk", status: "live" },
+    { name: "indiekidz.eu", url: "https://indiekidz.eu", status: "live" },
+    { name: "tippytoescollective.com.au", url: "https://tippytoescollective.com.au", status: "live" },
+  ];
+
+  const skills = [
+    "Shopify Liquid", "Theme Customization", "Shopify OS 2.0", "Custom Sections",
+    "Metafields", "Third-Party App Integration", "Klaviyo Email Marketing",
+    "HTML / CSS / JavaScript", "WordPress Design", "PageFly / GemPages",
+    "Responsive Web Development", "Client Requirement Analysis",
+  ];
+
+  return (
+    <div className="min-h-screen py-10 px-4 sm:py-16">
+      <div className="max-w-2xl mx-auto rise-in">
+
+        <div className="bg-[#fbfaf5] border border-[#c9c3b2] shadow-[0_1px_0_#c9c3b2,0_30px_70px_-40px_rgba(29,35,33,0.5)]">
+          <div className="zig"></div>
+
+          <div className="px-6 sm:px-10 pt-10 pb-8">
+
+            <header className="text-center pb-7 border-b border-dashed border-[#c9c3b2]">
+              <h1 className="font-display text-4xl sm:text-5xl tracking-tight">Siddhi Wadkar</h1>
+              <p className="mt-2 text-[#4a5049]">Shopify Developer · eCommerce Store Builds &amp; Customization</p>
+              <p className="mt-3 text-sm text-[#4a5049]">Kolhapur, Maharashtra, India</p>
+              <div className="mt-4 flex flex-wrap justify-center gap-x-5 gap-y-2">
+                <CopyField icon="✉" value="siddhiwadkar40@gmail.com" display="siddhiwadkar40@gmail.com" href="mailto:siddhiwadkar40@gmail.com" />
+                <CopyField icon="☎" value="+91-9579240090" display="+91-9579240090" href="tel:+919579240090" />
+                <a href="https://linkedin.com/in/siddhi-wadkar-3157a6250" target="_blank" rel="noopener noreferrer" className="underline-link text-sm text-[#4a5049]">
+                  LinkedIn
+                </a>
+              </div>
+            </header>
+
+            <section className="py-7 border-b border-dashed border-[#c9c3b2]">
+              <h2 className="font-display text-lg mb-3">Order Summary</h2>
+              <p className="text-[#4a5049] leading-relaxed">
+                1.7+ years building and customizing Shopify stores for clients across India, Europe,
+                and Australia — from first commit to live checkout. Comfortable owning a store end to
+                end: Liquid theme work, custom sections, metafields, app integrations, and the email
+                flows that keep customers coming back.
+              </p>
+            </section>
+
+            <section className="py-7 border-b border-dashed border-[#c9c3b2]">
+              <h2 className="font-display text-lg mb-1">Store Builds</h2>
+              <p className="text-xs text-[#4a5049] mb-2">Shipped and currently maintained</p>
+              <div>
+                {stores.map((s) => <StoreRow key={s.name} {...s} />)}
+              </div>
+            </section>
+
+            <section className="py-7 border-b border-dashed border-[#c9c3b2]">
+              <h2 className="font-display text-lg mb-3">Skills on Hand</h2>
+              <div className="flex flex-wrap gap-2">
+                {skills.map((s) => <Tag key={s}>{s}</Tag>)}
+              </div>
+            </section>
+
+            <section className="py-7 border-b border-dashed border-[#c9c3b2]">
+              <h2 className="font-display text-lg mb-3">Experience</h2>
+              <div className="flex justify-between items-baseline font-medium">
+                <span>Junior Web Developer</span>
+                <span className="text-sm font-normal text-[#4a5049]">Jan 2025 – Present</span>
+              </div>
+              <ul className="mt-2.5 pl-5 text-sm text-[#4a5049] space-y-1.5 list-disc">
+                <li>Customized Shopify themes and store layouts to client branding requirements</li>
+                <li>Designed and optimized product, collection, and landing pages</li>
+                <li>Integrated Shopify apps, plugins, and payment gateways</li>
+                <li>Built and ran Klaviyo email flows — Welcome Series, Abandoned Cart Recovery — with A/B testing to lift open and conversion rates</li>
+                <li>Ensured responsive, mobile-optimized delivery across client stores</li>
+              </ul>
+            </section>
+
+            <section className="py-7">
+              <h2 className="font-display text-lg mb-3">Education</h2>
+              <div className="space-y-1.5 text-sm">
+                <div className="flex justify-between">
+                  <span>Bachelor of Technology (BTech)</span>
+                  <span className="text-[#4a5049]">Shivaji University, 2020–2024</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Higher Secondary Certificate</span>
+                  <span className="text-[#4a5049]">Maharashtra State Board, 2019–2020</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Secondary School Certificate</span>
+                  <span className="text-[#4a5049]">Maharashtra State Board, 2017–2018</span>
+                </div>
+              </div>
+              <div className="flex justify-between items-baseline pt-4 mt-4 border-t border-[#c9c3b2]">
+                <span className="font-display text-lg">Total experience</span>
+                <span className="text-sm text-[#5f6b52]">1.7+ years, and counting</span>
+              </div>
+            </section>
+
+          </div>
+
+          <div className="zig zig-bottom"></div>
+
+          <footer className="text-center py-6 px-6 text-sm text-[#4a5049]">
+            <p className="font-display italic text-[#4a5049]">Thank you for stopping by the store.</p>
+          </footer>
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+
+</body>
+</html>
