@@ -97,8 +97,10 @@ nav .wrap{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;hei
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:20px;transition:border-color .2s}
 .card:hover{border-color:#2f4a92}
 .card.big{grid-column:1/-1;flex-direction:row;align-items:stretch;gap:32px;padding:20px}
-.media{flex:1.5;min-height:220px;border-radius:10px;border:1px solid var(--line);background:radial-gradient(circle at 50% 45%,rgba(111,163,255,.16),transparent 60%),#0a1230;display:flex;flex-direction:column;justify-content:space-between;padding:14px}
-.media .dom{font-size:clamp(1.3rem,3vw,2rem);font-weight:600;letter-spacing:-.03em;color:#243768;align-self:center;margin:auto 0}
+.media{flex:1.5;min-height:220px;border-radius:10px;border:1px solid var(--line);background:radial-gradient(circle at 50% 45%,rgba(111,163,255,.16),transparent 60%),#0a1230;display:flex;flex-direction:column;justify-content:space-between;padding:14px;position:relative;overflow:hidden}
+.media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.media .mono{position:relative;z-index:2;text-shadow:0 1px 4px rgba(0,0,0,.8)}
+.media .dom{font-size:clamp(1.3rem,3vw,2rem);font-weight:600;letter-spacing:-.03em;color:#243768;align-self:center;margin:auto 0;position:relative;z-index:2}
 .body{flex:1;padding:4px 6px 8px;display:flex;flex-direction:column}
 .body .n{color:var(--lime)}
 .body h3{font-size:1.7rem;margin:8px 0 4px}
@@ -217,29 +219,42 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
     <p>Every store below is live. Screenshots and walkthrough videos can be dropped into the preview areas.</p>
   </div>
   <div class="work">
-   <article class="card">
-      <div class="media"><span class="mono">Store preview</span><span class="dom"></span><span class="mono">Ongoing client</span></div>
+    <article class="card">
+      <div class="media">
+        <span class="mono">Store preview</span>
+        <img src="scorenn.jpg" alt="Scorenn store preview" onerror="this.style.display='none'">
+        <span class="mono">Ongoing client</span>
+      </div>
       <div class="body"><span class="mono n">01</span><h3>Scorenn</h3><span class="mono sub">Long-term Shopify development</span>
         <p>I own this store end to end: custom sections, templates and feature enhancements, with Klaviyo, Tidio and Swatch King integrations.</p>
         <ul class="chips"><li>Shopify</li><li>Liquid</li><li>Klaviyo</li><li>Swatch King</li></ul>
         <a class="visit" href="https://scorenn.com/" target="_blank" rel="noopener noreferrer">Visit live store ↗</a></div>
     </article>
     <article class="card">
-      <div class="media"><span class="mono">Store preview</span><span class="dom">luflicskin.com</span></div>
+      <div class="media">
+        <span class="mono">Store preview</span>
+        <img src="luflicskin.jpg" alt="Luflicskin store preview" onerror="this.style.display='none'">
+      </div>
       <div class="body"><span class="mono n">02</span><h3>Luflicskin</h3><span class="mono sub">Built from scratch</span>
         <p>Custom theme sections and product pages built to the client's spec.</p>
         <ul class="chips"><li>Shopify</li><li>Custom sections</li><li>Product pages</li></ul>
         <a class="visit" href="https://www.luflicskin.com/" target="_blank" rel="noopener noreferrer">Visit live store ↗</a></div>
     </article>
     <article class="card">
-      <div class="media"><span class="mono">Store preview</span><span class="dom">tascony.com</span></div>
+      <div class="media">
+        <span class="mono">Store preview</span>
+        <img src="tascony.jpg" alt="Tascony store preview" onerror="this.style.display='none'">
+      </div>
       <div class="body"><span class="mono n">03</span><h3>Tascony</h3><span class="mono sub">Store from scratch</span>
         <p>Custom storefront components with a responsive experience across devices.</p>
         <ul class="chips"><li>Shopify</li><li>Liquid</li><li>Responsive</li></ul>
         <a class="visit" href="https://tascony.com/" target="_blank" rel="noopener noreferrer">Visit live store ↗</a></div>
     </article>
     <article class="card">
-      <div class="media"><span class="mono">Store preview</span><span class="dom">indiekidz.eu</span></div>
+      <div class="media">
+        <span class="mono">Store preview</span>
+        <span class="dom">indiekidz.eu</span>
+      </div>
       <div class="body"><span class="mono n">04</span><h3>Indiekidz</h3><span class="mono sub">Storefront build</span>
         <p>Theme customization and product page setup tailored to the brand's identity.</p>
         <ul class="chips"><li>Shopify</li><li>Theme customization</li><li>Product pages</li></ul>
@@ -251,7 +266,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
     <a href="https://thevelvetmask.se/" target="_blank" rel="noopener noreferrer">The Velvet Mask</a>
     <a href="https://pointestudio.dk" target="_blank" rel="noopener noreferrer">Pointe Studio</a>
     <a href="https://tippytoescollective.com.au" target="_blank" rel="noopener noreferrer">Tippy Toes Collective</a>
-      <a>20+ Shopify projects</a>
+    <a>20+ Shopify projects</a>
   </div>
 </div></section>
 
